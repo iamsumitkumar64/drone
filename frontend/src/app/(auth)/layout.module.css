@@ -1,0 +1,17 @@
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    overflow: auto;
+}
+
+.leftContainer {
+    width: 50%;
+    height: 100%;
+}
+
+.rightContainer {
+    width: 50%;
+    height: 100%;
+}

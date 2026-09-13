@@ -1,0 +1,99 @@
+ARG NODE_IMAGE=node:24.15.0-alpine
+
+
+
+
+
+
+
+# Stage 1: Base runtime
+FROM ${NODE_IMAGE} AS base
+
+WORKDIR /app
+
+# Install dumb-init
+RUN apk --no-cache add dumb-init
+
+# Ensure default node user owns /app
+RUN mkdir -p /app && chown -R node:node /app
+
+# Build arguments for Next.js NEXT_PUBLIC_* variables
+ARG NEXT_PUBLIC_BACKEND_URL
+ARG NEXT_PUBLIC_FRONTEND_URL
+
+# Environment variables
+ENV NEXT_PUBLIC_BACKEND_URL=${NEXT_PUBLIC_BACKEND_URL}
+ENV NEXT_PUBLIC_FRONTEND_URL=${NEXT_PUBLIC_FRONTEND_URL}
+ENV HOSTNAME="0.0.0.0"
+ENV PORT=3000
+
+# Switch to default non-root user
+USER node
+
+
+
+
+
+
+
+# Stage 2: dev runtime
+FROM base AS dev
+
+# Copy dependency files
+COPY --chown=node:node package*.json ./
+
+# Install dependencies
+RUN npm ci
+
+# Copy source code and configuration
+COPY --chown=node:node . .
+
+# Expose the application port
+EXPOSE 3000
+
+# Start the application
+CMD ["npm", "run", "dev"]
+
+
+
+
+
+
+
+# Stage 3: Build
+FROM base AS build
+
+# Copy dependency files
+COPY --chown=node:node package*.json ./
+
+# Copy source code and configuration
+COPY --chown=node:node . .
+
+# Install locked dependencies, build and prune dev dependencies
+RUN npm ci && npm cache clean --force
+RUN npm run build
+
+
+
+
+
+
+
+# Stage 4: Production runtime
+FROM base AS production
+
+# Environment variables
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+
+# Copy built application output from build
+COPY --chown=node:node --from=build /app/public ./public
+COPY --chown=node:node --from=build /app/.next/standalone ./
+COPY --chown=node:node --from=build /app/.next/static ./.next/static
+COPY --chown=node:node --from=build /app/package*.json ./
+
+# Expose the application port
+EXPOSE 3000
+
+# Start the application
+CMD ["dumb-init", "node", "server.js"]

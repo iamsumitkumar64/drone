@@ -1,0 +1,28 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.button {
+    text-transform: none;
+}
+
+.hiddenInput {
+    display: none;
+}
+
+.success {
+    color: #2e7d32;
+    font-size: 0.875rem;
+}
+
+.error {
+    color: #d32f2f;
+    font-size: 0.875rem;
+}
+
+.link {
+    color: inherit;
+    text-decoration: underline;
+}

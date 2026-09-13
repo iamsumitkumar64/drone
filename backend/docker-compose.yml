@@ -1,0 +1,52 @@
+name: "setup-backend"
+
+services:
+  pgadmin:
+    image: dpage/pgadmin4:9.8
+    ports:
+      - 5050:80
+    env_file: ./.env
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    volumes:
+      - backend_pgadmin_data:/var/lib/pgadmin
+    networks:
+      - setup_network
+
+  database:
+    image: postgres:16
+    container_name: postgres_db
+    restart: always
+    env_file: ./.env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_POSTGRES_USERNAME:-postgres} -d ${DB_POSTGRES_DATABASE:-db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - backend_postgres_data:/var/lib/postgresql/data
+    networks:
+      - setup_network
+
+  backend:
+    build:
+      context: ./
+      dockerfile: dockerfile
+    ports:
+      - "8090:8090"
+    env_file: ./.env
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - setup_network
+
+volumes:
+  backend_postgres_data: {}
+  backend_pgadmin_data: {}
+
+networks:
+  setup_network:
+    name: setup_network
+    driver: bridge

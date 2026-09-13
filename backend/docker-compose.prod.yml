@@ -1,0 +1,6 @@
+name: "setup-backend"
+
+services:
+  backend:
+    build:
+      target: production

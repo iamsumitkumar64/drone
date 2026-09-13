@@ -1,0 +1,19 @@
+-> Clean up docker
+    docker container prune -f && docker volume prune -f && docker builder prune -f --all && docker buildx history rm --all && docker system prune -f
+
+
+-> Setup Deps,env in both folder
+    (cp backend/.env.example backend/.env) && (cp frontend/.env.example frontend/.env) && (cd backend && npm ci) && (cd frontend && npm ci)
+
+
+-> Run docker start
+    production stage ($/poc/any) ->
+        docker compose --env-file .env -f docker-compose.yml -f docker-compose.prod.yml up --build 
+    development stage ($/poc/any) ->
+        docker compose --env-file .env -f docker-compose.yml -f docker-compose.dev.yml up --build 
+
+
+-> For DB Migration 
+    In terminal ($/poc/backend) ->
+        docker compose exec backend sh
+        npm run build && npm run migration:run && npm run seed

@@ -1,0 +1,91 @@
+ARG NODE_IMAGE=node:24.15.0-alpine
+
+
+
+
+
+
+
+# Stage 1: Base runtime
+FROM ${NODE_IMAGE} AS base
+
+WORKDIR /app
+
+# Install dumb-init
+RUN apk --no-cache add dumb-init
+
+# Ensure default node user owns /app
+RUN mkdir -p /app && chown -R node:node /app
+
+# Environment variables
+ENV HOSTNAME="0.0.0.0"
+
+# Switch to default non-root user
+USER node
+
+
+
+
+
+
+
+# Stage 2: dev runtime
+FROM base AS dev
+
+# Copy dependency files
+COPY --chown=node:node package*.json ./
+
+# Install dependencies
+RUN npm ci
+
+# Copy source code and configuration
+COPY --chown=node:node . .
+
+# Expose the application port
+EXPOSE 8090
+
+# Start the application
+CMD ["npm", "run", "start:dev"]
+
+
+
+
+
+
+
+
+# Stage 3: Build
+FROM base AS build
+
+# Copy dependency files
+COPY --chown=node:node package*.json ./
+
+# Copy source code and configuration
+COPY --chown=node:node . .
+
+# Install locked dependencies, build and prune dev dependencies
+RUN npm ci && npm cache clean --force
+RUN npm run build
+
+
+
+
+
+
+
+# Stage 4: Production runtime
+FROM base AS production
+
+# Environment variables
+ENV NODE_ENV=production
+
+# Copy production dependencies and compiled build output from build
+COPY --chown=node:node --from=build /app/node_modules ./node_modules
+COPY --chown=node:node --from=build /app/dist ./dist
+COPY --chown=node:node --from=build /app/package*.json ./
+
+# Expose the application port
+EXPOSE 8090
+
+# Start the application
+CMD ["dumb-init", "node", "dist/main.js"]

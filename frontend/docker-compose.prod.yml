@@ -1,0 +1,6 @@
+name: "setup-frontend"
+
+services:
+  frontend:
+    build:
+      target: production

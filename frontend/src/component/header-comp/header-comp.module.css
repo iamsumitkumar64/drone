@@ -1,0 +1,29 @@
+.header {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1%;
+    box-shadow: 0 0 4px 5px #e5f7ff;
+    border-bottom: 1px solid #97c5e2;
+}
+
+.leftContainer {
+    width: 50%;
+    gap: 20px;
+}
+
+.title {
+    font-size: 1.5rem;
+    padding: 1%;
+    border-radius: 50px;
+}
+
+.rightContainer {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 1%;
+}
