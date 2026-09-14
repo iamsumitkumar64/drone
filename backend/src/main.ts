@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule, ObserveInstrument } from './app.module.js';
+import { AppModule } from './app.module.js';
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { initializeTransactionalContext, StorageDriver } from 'typeorm-transactional';
@@ -9,9 +9,7 @@ import { CommonExceptionFilter } from './infrastructure/exception-filter/common-
 async function bootstrap() {
   initializeTransactionalContext({ storageDriver: StorageDriver.ASYNC_LOCAL_STORAGE });
 
-  const app = await NestFactory.create(AppModule, {
-    instrument: ObserveInstrument,
-  });
+  const app = await NestFactory.create(AppModule);
 
   app.use(cookieParser());
 

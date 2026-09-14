@@ -1,0 +1,55 @@
+.dialogTitle {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.dialogContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 8px;
+}
+
+.description {
+  color: #64748b;
+  font-size: 0.875rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.error {
+  color: #ef4444;
+  font-size: 12px;
+  font-weight: 500;
+  margin-top: 4px;
+  margin-bottom: 0;
+}
+
+.dialogActions {
+  padding: 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.cancelBtn {
+  text-transform: none;
+  color: #64748b;
+}
+
+.submitBtn {
+  background-color: #2563eb;
+  color: #ffffff;
+  text-transform: none;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 6px 16px;
+}
+
+.submitBtn:hover {
+  background-color: #1d4ed8;
+}

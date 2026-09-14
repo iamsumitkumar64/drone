@@ -1,0 +1,133 @@
+.container {
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  height: 650px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  background-color: #ffffff;
+}
+
+.header {
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.title {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.subtitle {
+  color: #64748b;
+  font-size: 0.875rem;
+}
+
+.suggestions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.suggestionChip {
+  background-color: #f1f5f9;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.suggestionChip:hover {
+  background-color: #e2e8f0;
+}
+
+.messagesFeed {
+  flex-grow: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-right: 8px;
+}
+
+.messageUser {
+  align-self: flex-end;
+  max-width: 80%;
+  background-color: #2563eb;
+  color: #ffffff;
+  padding: 16px;
+  border-radius: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.messageBot {
+  align-self: flex-start;
+  max-width: 80%;
+  background-color: #f8fafc;
+  color: #0f172a;
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.messageText {
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+.messageTimeUser {
+  display: block;
+  text-align: right;
+  margin-top: 4px;
+  font-size: 0.65rem;
+  opacity: 0.8;
+  color: #ffffff;
+}
+
+.messageTimeBot {
+  display: block;
+  text-align: right;
+  margin-top: 4px;
+  font-size: 0.65rem;
+  color: #64748b;
+}
+
+.loadingBox {
+  align-self: flex-start;
+  background-color: #f8fafc;
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+}
+
+.loadingText {
+  color: #64748b;
+  font-size: 0.875rem;
+}
+
+.form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e2e8f0;
+  align-items: center;
+}
+
+.inputField {
+  flex-grow: 1;
+}
+
+.sendButton {
+  background-color: #2563eb;
+  color: #ffffff;
+  padding: 8px 24px;
+  text-transform: none;
+  font-weight: 600;
+  border-radius: 8px;
+}
+
+.sendButton:hover {
+  background-color: #1d4ed8;
+}

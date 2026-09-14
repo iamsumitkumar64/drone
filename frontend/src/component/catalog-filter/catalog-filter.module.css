@@ -1,0 +1,31 @@
+.filterBar {
+  padding: 16px;
+  margin-bottom: 24px;
+  border-radius: 8px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+  background-color: #ffffff;
+}
+
+.searchField {
+  flex-grow: 1;
+  min-width: 200px;
+}
+
+.retailerField {
+  min-width: 150px;
+}
+
+.categoryField {
+  min-width: 180px;
+}
+
+.statusField {
+  min-width: 140px;
+}
+
+.priceField {
+  width: 130px;
+}

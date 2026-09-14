@@ -1,0 +1,30 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f8fafc;
+  display: flex;
+  flex-direction: column;
+}
+
+.contentWrapper {
+  max-width: 1000px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 32px 16px;
+  flex-grow: 1;
+}
+
+.header {
+  margin-bottom: 24px;
+}
+
+.title {
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.subtitle {
+  color: #64748b;
+  font-size: 0.875rem;
+}

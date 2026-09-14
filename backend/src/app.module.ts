@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { createObserveModule } from '@nestjs/observe';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { dataSource } from './infrastructure/database/config/orm-config.js';
@@ -10,26 +9,20 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SocketModule } from './infrastructure/service/socket/socket.module.js';
 import { AuthModule } from './feature/auth/auth.module.js';
 import { DataSourceOptions } from 'typeorm';
-import { UploadModule } from './feature/upload/upload.module.js';
+import { ProductModule } from './feature/product/product.module.js';
+import { WatchlistModule } from './feature/watchlist/watchlist.module.js';
+import { MonitoringModule } from './feature/monitoring/monitoring.module.js';
+import { ChatModule } from './feature/chat/chat.module.js';
 import { createTransactionalDataSourceService } from './infrastructure/service/typeorm-transactional/typeorm-transactional.service.js';
 import { BcryptService } from './infrastructure/service/bcrypt/bcrypt.service.js';
 import { JwtHelperService } from './infrastructure/service/jwt/jwt.service.js';
-import { CloudinaryService } from './infrastructure/service/cloudinary/cloudinary.service.js';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthenticateGuard } from './infrastructure/guard/authenticate/authenticate.guard.js';
-
-export const { ObserveModule, ObserveInstrument } = createObserveModule();
+import { ScheduleModule } from '@nestjs/schedule';
+import { CronModule } from './infrastructure/cron/cron.module.js';
 
 @Module({
   imports: [
-    // Distributed tracing, auto-correlated logs, request/job metrics, error
-    // telemetry, alarms, and more — out of the box. Sign up at https://observe.nestjs.com
-    ObserveModule.forRoot({
-      appKey: 'YOUR_APP_KEY',
-      appSecret: 'YOUR_APP_SECRET',
-      serviceId: 'backend',
-    }),
-
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -60,10 +53,15 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
       global: true,
     }),
 
-    //Modules
+    // Features & Modules
     AuthModule,
     SocketModule,
-    UploadModule,
+    ProductModule,
+    WatchlistModule,
+    MonitoringModule,
+    ChatModule,
+    ScheduleModule.forRoot(),
+    CronModule,
   ],
   controllers: [AppController],
   providers: [
@@ -71,11 +69,10 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     BcryptService,
     UserRepository,
     JwtHelperService,
-    CloudinaryService,
     {
       provide: APP_GUARD,
-      useClass: AuthenticateGuard
-    }
+      useClass: AuthenticateGuard,
+    },
   ],
 })
 export class AppModule { }

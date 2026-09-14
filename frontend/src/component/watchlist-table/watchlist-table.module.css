@@ -1,0 +1,105 @@
+.emptyState {
+  padding: 48px;
+  text-align: center;
+  border-radius: 12px;
+  background-color: #ffffff;
+}
+
+.emptyTitle {
+  margin-bottom: 8px;
+  color: #64748b;
+}
+
+.emptySubtitle {
+  margin-bottom: 24px;
+  color: #64748b;
+}
+
+.browseBtn {
+  text-transform: none;
+}
+
+.listContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cardItem {
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  background-color: #ffffff;
+}
+
+.infoSection {
+  max-width: 60%;
+}
+
+@media (max-width: 768px) {
+  .infoSection {
+    max-width: 100%;
+  }
+}
+
+.tagRow {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.stockChip {
+  font-weight: 700;
+}
+
+.productTitle {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.productUrlText {
+  color: #64748b;
+  word-break: break-all;
+  font-size: 0.75rem;
+}
+
+.productLink {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.actionsSection {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.priceBox {
+  text-align: right;
+}
+
+.priceText {
+  font-weight: 800;
+  color: #0f766e;
+}
+
+.alertLabel {
+  color: #64748b;
+  font-size: 0.75rem;
+}
+
+.testAlertBtn {
+  text-transform: none;
+  font-size: 0.75rem;
+}
+
+.removeBtn {
+  text-transform: none;
+}

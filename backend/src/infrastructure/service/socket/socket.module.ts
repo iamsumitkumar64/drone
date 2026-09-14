@@ -6,6 +6,6 @@ import { JwtHelperService } from "../jwt/jwt.service.js";
 @Global()
 @Module({
     providers: [SocketService, JwtHelperService, UserRepository],
-    exports: [],
+    exports: [SocketService],
 })
 export class SocketModule { }
