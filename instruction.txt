@@ -17,3 +17,4 @@
     In terminal ($/poc/backend) ->
         docker compose exec backend sh
         npm run build && npm run migration:run && npm run seed
+
